@@ -1,11 +1,11 @@
 <h1 align="center">
-    <img alt="pokedexApp" title="#pokedexApp" src="./assets/gif1.gif" width="400px"/>
+    <img alt="pokedexApp" title="#pokedexApp" src="./assets/gif1.gif" width="600px"/>
 </h1>
 <h1 align="center">
-    <img alt="pokedexApp" title="#pokedexApp" src="./assets/gif2.gif" width="400px"/>
+    <img alt="pokedexApp" title="#pokedexApp" src="./assets/gif2.gif" width="600px"/>
 </h1>
 <h1 align="center">
-    <img alt="pokedexApp" title="#pokedexApp" src="./assets/gif3.gif" width="400px"/>
+    <img alt="pokedexApp" title="#pokedexApp" src="./assets/gif3.gif" width="600px"/>
 </h1>
 <h1 align="center">
     <img alt="pokedexApp" title="#pokedexApp" src="./assets/mobile1.png" width="400px"/>
