@@ -20,6 +20,8 @@
 
 Personal project built using ReactJS and Bootstrap 4, with axios for Poke API requests. It is a pokedex which contains pokemons from all generations, where you can access the data of each pokemon. As a pokemon fan, this is the pokedex that I always wanted and I'm really grateful that I could make it. Also, I could learn a lot about using bootstrap with react. Feel free to access the site via netlify and enjoy it.
 
+Site: https://masterpokedex.netlify.app/
+
 ## 🛠 Technology
 
 #### **Website**
