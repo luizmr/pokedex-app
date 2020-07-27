@@ -1,38 +1,70 @@
 .App {
-  text-align: center;
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: repeat;
+	background-color: #fafafa;
+
+	padding-top: 4rem;
+	min-height: 100vh;
+
+	font-family: "Comfortaa", Helvetica, cursive;
+	font-weight: 500;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar {
+	background-color: rgb(239, 83, 80) !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@media (max-width: 420px) {
+	.poke-footer {
+		text-align: center !important;
+	}
+	.poke-footer button {
+		transform: translate(-45%, 0);
+	}
+}
+@media (max-width: 780px) {
+	.poke-footer button {
+		width: 6rem;
+	}
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.navbar-toggler:hover {
+	/* opacity: 0.8; */
+	box-shadow: 0 0 10px #fff, 0 0 20px #fff;
+}
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler:hover {
+	outline: none !important;
+}
+.navbar-toggler {
+	background: #fff !important; /*Whatever colour you want for background */
 }
 
-.App-link {
-  color: #61dafb;
+.progress,
+.img-poke {
+	transition: all 0.3s ease-in-out;
+}
+.progress {
+	cursor: grab;
+}
+.img-poke {
+	cursor: url("./pokemon.svg"), auto;
+}
+.progress:hover {
+	transform: scale(1.1) translateX(-10px);
+}
+.img-poke:hover {
+	transform: scale(1.2);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.activated {
+	transform: scale(1.1);
+	border-bottom: 2px solid #fff;
+}
+
+.clicked {
+	visibility: hidden;
+	display: none;
 }
