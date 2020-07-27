@@ -62,7 +62,7 @@ export default class Pokemon extends Component {
 		// urls for poke info
 
 		const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonIndex}`;
-		const pokemonSpeciesUrl = `http://pokeapi.co/api/v2/pokemon-species/${pokemonIndex}`;
+		const pokemonSpeciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonIndex}`;
 
 		// get poke info
 
@@ -93,8 +93,6 @@ export default class Pokemon extends Component {
 				case "special-defense":
 					specialDefense = stat["base_stat"];
 					break;
-				default:
-					return null;
 			}
 		});
 
