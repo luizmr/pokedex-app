@@ -156,7 +156,10 @@ export default class PokemonList extends Component {
 							alt="pokedex"
 							style={{ width: "40px" }}
 						/>
-						<a className="navbar-brand col-sm-3 col-md-1 mr-4 align-items-center w-25">
+						<a
+							className="navbar-brand col-sm-3 col-md-1 mr-4 align-items-center w-25"
+							href="/"
+						>
 							Pokedex
 						</a>
 						<button
@@ -297,6 +300,7 @@ export default class PokemonList extends Component {
 							left: "50%",
 							transform: "translate(-50%, -50%) scale(2)",
 						}}
+						alt="spinner"
 					/>
 				)}
 			</>

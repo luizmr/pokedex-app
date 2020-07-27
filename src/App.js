@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./App.css";
 
-import NavBar from "./components/layout/NavBar";
 import Dashboard from "./components/layout/Dashboard";
 import Pokemon from "./components/pokemon/Pokemon";
 
@@ -19,6 +18,7 @@ function App() {
 				style={{
 					background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(239, 83, 80, 0.5)), url(${bgImage})`,
 				}}
+				alt="bgImage"
 			>
 				{/* <NavBar /> */}
 				<div className="container">
