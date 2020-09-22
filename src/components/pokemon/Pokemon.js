@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+// para cada tipo de pokemon, existe uma cor que referencia ele
 const TYPE_COLORS = {
 	bug: "B1C12E",
 	dark: "4F3A2D",
@@ -25,6 +26,7 @@ const TYPE_COLORS = {
 };
 
 export default class Pokemon extends Component {
+	// neste componente, novos estados serão obtidos através de novas chamadas a pokeapi para obter detalhes de cada pokemon quando clicado
 	state = {
 		name: "",
 		pokemonIndex: "",
@@ -56,15 +58,15 @@ export default class Pokemon extends Component {
 	};
 
 	async componentDidMount() {
-		// gets from Link
+		// quando o usuario clica no pokemon, este componente é chamado e no seu link terá o parametro referente ao seu numero na pokedex
 		const { pokemonIndex } = this.props.match.params;
 
-		// urls for poke info
+		// com o numero da pokedex obtido, ele é usado para duas novas requisições que serão responsáveis por colher os detalhes do pokemon
 
 		const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonIndex}`;
 		const pokemonSpeciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonIndex}`;
 
-		// get poke info
+		// usando axios e o primeiro link, os detalhes serão obtidos
 
 		const pokemonRes = await axios.get(pokemonUrl);
 
@@ -73,6 +75,7 @@ export default class Pokemon extends Component {
 
 		let { hp, attack, defense, speed, specialAttack, specialDefense } = "";
 
+		// para cada nome dentro do stat, ele retornará o valor desejado
 		pokemonRes.data.stats.map((stat) => {
 			switch (stat.stat.name) {
 				case "hp":
@@ -96,22 +99,29 @@ export default class Pokemon extends Component {
 			}
 		});
 
+		// tanto para altura como para peso, arrendonda o valor e transforma para cm e kgs, respectivamente
 		const height = Math.round(pokemonRes.data.height * 10);
 		console.log(height);
 
 		const weight = Math.round(pokemonRes.data.weight * 0.1);
 		console.log(weight);
 
+		// geralmente um pokemon pode ter mais de um tipo, logo usa map para pegar e guarda todos os tipos que ele pode ter
 		const types = pokemonRes.data.types.map((type) => {
 			return type.type.name;
 		});
 
+		// o mesmo para as habilidades, os pokemons podem ter mais de uma, logo usa map e join para produzir o texto esperado
 		const abilities = pokemonRes.data.abilities
 			.map((ability) => {
 				return ability.ability.name;
 			})
 			.join(", ");
 
+		// evs são pontos de habilidade que os pokemons podem ganhar quando vencem uma batalha
+		// cada pokemon tem uma quantidade de pontos para uma certa característica que ele pode ganhar
+		// dessa forma, se existir, ele retorna true, caso não exista, retorna false
+		// se ele possuir, sera feito um map retornando a pontuação de cada característica
 		const evs = pokemonRes.data.stats
 			.filter((stat) => {
 				if (stat.effort > 0) {
@@ -125,10 +135,12 @@ export default class Pokemon extends Component {
 			})
 			.join(", ");
 
+		// nesta pagina, voce pode passar para o proximo ou retornar para o pokemon anterior através dos botões next e previous
+		// quando voce clica, voce define um novo index que será utilizado para fazer uma nova requisição na pokeapi e retornar novos dados para o novo pokemon desejado
 		const next = Number(pokemonIndex) + 1;
 		const prev = Number(pokemonIndex) - 1;
 
-		// get pokemon description -> catch rate, egg groups, gender ration, hatch steps
+		// o segundo link é para buscar novos detalhes do pokemon relacionados a sua espécie
 
 		await axios.get(pokemonSpeciesUrl).then((res) => {
 			let description = "";
@@ -139,11 +151,14 @@ export default class Pokemon extends Component {
 				}
 			});
 
+			// cada pokemon pode ter uma % de ser macho ou femea, este calculo está definido na documentação da pokeapi
+
 			const femaleRate = res.data["gender_rate"];
 			const genderRatioFemale = 12.5 * femaleRate;
-			// 8 is 100%
+			// 8 é 100%
 			const genderRatioMale = 12.5 * (8 - femaleRate);
 
+			// a conversão para capturar o pokemon desta espécie esta definida na documentação da pokeapi
 			const catchRate = Math.round(
 				(100 / 255) * res.data["capture_rate"]
 			);
@@ -154,8 +169,10 @@ export default class Pokemon extends Component {
 				})
 				.join(", ");
 
+			// a conversão dos passos para chocar um ovo do pokemon desta espécie esta definida na documentação da pokeapi
 			const hatchSteps = 255 * (res.data["hatch_counter"] + 1);
 
+			// seta o state com os dados obtidos através da requisição a pokeapi
 			this.setState({
 				description,
 				genderRatioMale,
@@ -166,23 +183,7 @@ export default class Pokemon extends Component {
 			});
 		});
 
-		// const evolution = await axios
-		// 	.get(pokemonEvolve)
-		// 	.then((res) => res.data.chain["evolves_to"])
-		// 	.then((data) => {
-		// 		return data[0].species.name;
-		// 	});
-
-		// const evolutionExist = await axios
-		// 	.get(pokemonEvolve)
-		// 	.then((res) => res.data.chain["species"])
-		// 	.then((data) => data.name);
-		// console.log(evolutionExist);
-
-		// const imageEvolution = await axios
-		// 	.get(`https://pokeapi.co/api/v2/pokemon/${next}`)
-		// 	.then((res) => res.data.sprites.front_default);
-
+		// todos os estados são setados após o sucesso das requisições da pokeapi e agora podem ser usados para mostrar os detalhes ao usuario
 		this.setState({
 			imageUrl,
 			pokemonIndex,
@@ -247,7 +248,7 @@ export default class Pokemon extends Component {
 								<h4 className="mx-auto text-capitalize">
 									{this.state.name}
 								</h4>
-								{/* progress bar */}
+								{/* barra referente as características do pokemon */}
 								<div className="row align-items-center">
 									<div className="col-12 col-md-3">HP</div>
 									<div className="col-12 col-md-9">
@@ -270,7 +271,7 @@ export default class Pokemon extends Component {
 										</div>
 									</div>
 								</div>
-								{/* progress bar */}
+								{/* barra referente as características do pokemon */}
 								<div className="row align-items-center">
 									<div className="col-12 col-md-3">
 										Attack
@@ -295,7 +296,7 @@ export default class Pokemon extends Component {
 										</div>
 									</div>
 								</div>
-								{/* progress bar */}
+								{/* barra referente as características do pokemon */}
 								<div className="row align-items-center">
 									<div className="col-12 col-md-3">
 										Defense
@@ -320,7 +321,7 @@ export default class Pokemon extends Component {
 										</div>
 									</div>
 								</div>
-								{/* progress bar */}
+								{/* barra referente as características do pokemon */}
 								<div className="row align-items-center">
 									<div className="col-12 col-md-3">Speed</div>
 									<div className="col-12 col-md-9">
@@ -343,7 +344,7 @@ export default class Pokemon extends Component {
 										</div>
 									</div>
 								</div>
-								{/* progress bar */}
+								{/* barra referente as características do pokemon */}
 								<div className="row align-items-center">
 									<div className="col-12 col-md-3">
 										Special Attack
@@ -371,7 +372,7 @@ export default class Pokemon extends Component {
 										</div>
 									</div>
 								</div>
-								{/* progress bar */}
+								{/* barra referente as características do pokemon */}
 								<div className="row align-items-center">
 									<div className="col-12 col-md-3">
 										Special Defense
@@ -401,7 +402,7 @@ export default class Pokemon extends Component {
 								</div>
 							</div>
 
-							{/* description */}
+							{/* descrição */}
 
 							<div className="row mt-1">
 								<div className="col">
@@ -416,8 +417,8 @@ export default class Pokemon extends Component {
 					<div className="card-body">
 						<div className="card-title ">
 							<h4 className="text-center mb-4">Profile</h4>
-							{/* start of row */}
 							<div className="row">
+								{/* primeira coluna */}
 								<div className="col-md-6">
 									<div className="row">
 										<div className="col-6">
@@ -498,7 +499,7 @@ export default class Pokemon extends Component {
 											</div>
 										</div>
 									</div>
-									{/* second column */}
+									{/* segunda coluna */}
 								</div>
 								<div className="col-md-6">
 									<div className="row">
@@ -571,6 +572,7 @@ export default class Pokemon extends Component {
 							</div>
 							<div className="col-md-6">
 								<div className="row">
+									{/* para o primeiro pokemon, o botão previous nao aparece, somente a partir do segundo pokemon */}
 									<div className="col-md-4 d-flex justify-content-center">
 										{this.state.pokemonIndex >= 2 ? (
 											<Link to={`${this.state.prev}`}>

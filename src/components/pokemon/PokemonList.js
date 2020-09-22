@@ -16,12 +16,17 @@ export default class PokemonList extends Component {
 
 	async componentDidMount() {
 		const limit = 807;
+		// utilizando a api da PokeApi, ele retorna os dados do pokemon e salva no estado pokemon
 		const res = await axios.get(
 			`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=0`
 		);
 		this.setState({ pokemon: res.data["results"] });
 	}
 
+	// para cada geração, existe um limite de pokemons e um offset que define a partir de qual numero a contagem da geração começa
+	// logo cada geração tem um limit e um offset diferente
+	// cada função assíncrona de cada geração é chamada quando o usuário clica no seu respectivo botão
+	// quando o usuário clica, tal função será chamada e carregará os pokemons da geração desejada
 	async handleGen0() {
 		document.querySelectorAll("Button").forEach((el) => {
 			el.classList.remove("activated");
@@ -132,6 +137,7 @@ export default class PokemonList extends Component {
 		this.setState({ pokemon: res.data["results"] });
 	}
 
+	// função referente ao menu hamburguer quando é clicado para abrir e fechar
 	handleFa() {
 		if (
 			document
@@ -281,6 +287,8 @@ export default class PokemonList extends Component {
 					</span>
 				</ToTop>
 
+				{/* map do estado pokemon que contem todas as informações dos pokemons de cada geração ou todas gerações */}
+				{/* enquanto a função assíncrona não obtém sua resposta completa, um loading aparece na tela para indicar que os dados estão sendo carregados */}
 				{this.state.pokemon ? (
 					<div className="row">
 						{this.state.pokemon.map((pokemon) => (
@@ -309,12 +317,10 @@ export default class PokemonList extends Component {
 }
 
 const Button = styled.button`
-	/* background-color: #fff; */
-	/* color: rgb(239, 83, 80); */
 	background: transparent;
 	color: #fff;
 	border: none;
-	/* border-radius: 5px; */
+
 	padding: 5px 0;
 
 	margin: 0.5rem;

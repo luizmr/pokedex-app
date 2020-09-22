@@ -30,7 +30,6 @@
 }
 
 .navbar-toggler:hover {
-	/* opacity: 0.8; */
 	box-shadow: 0 0 10px #fff, 0 0 20px #fff;
 }
 .navbar-toggler:focus,
@@ -39,7 +38,7 @@
 	outline: none !important;
 }
 .navbar-toggler {
-	background: #fff !important; /*Whatever colour you want for background */
+	background: #fff !important;
 }
 
 .progress,
