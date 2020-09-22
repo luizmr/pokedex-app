@@ -288,7 +288,7 @@ export default class PokemonList extends Component {
 				</ToTop>
 
 				{/* map do estado pokemon que contem todas as informações dos pokemons de cada geração ou todas gerações */}
-				{/* enquanto a função assíncrona não obtém sua resposta completa, um loading aparece na tela para indicar que os dados estão sendo carregados */}
+				{/* enquanto a função assíncrona não obtém sua resposta completa, um loading aparece na tela para indicar que os dados estão sendo */}
 				{this.state.pokemon ? (
 					<div className="row">
 						{this.state.pokemon.map((pokemon) => (
