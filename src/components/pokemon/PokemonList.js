@@ -3,7 +3,7 @@ import axios from "axios";
 import styled, { keyframes } from "styled-components";
 import "bootstrap/js/src/collapse.js";
 import PokemonCard from "./PokemonCard";
-import spinner from "./loadinggif.gif";
+import spinner from "./loading/loadinggif.gif";
 import BackToTop from "react-back-to-top-button";
 import { FaArrowUp, FaBars } from "react-icons/fa";
 import { FiX } from "react-icons/fi";

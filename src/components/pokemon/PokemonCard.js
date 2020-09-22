@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import spinner from "./loadinggif.gif";
+import spinner from "./loading/loadinggif.gif";
 import { Link } from "react-router-dom";
 
 export default class PokemonCard extends Component {
